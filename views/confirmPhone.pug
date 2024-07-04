@@ -1,0 +1,15 @@
+extends base
+
+
+block content 
+          main.main
+            .login-form.send-auth-code
+                h2.heading-secondary.ma-bt-lg Confirm Your Phone Number
+                p we send an authentication code to your phone via SMS #{user.phone}
+                p you need to confirm your phone before getting access to our application
+                form.form.form--confirm-phone.form--login
+                    .form__group
+                        label.form__label(for='code') Verification Code
+                        input#code.form__input(type='number',  required)
+                    .form__group
+                        button.btn.btn--green Verify
