@@ -52,7 +52,18 @@ process.on('unhandledRejection', (err) => {
   console.log('rejection');
   console.log(err);
   server.close(() => {
+    //isso aqui serve para fechar a aplicaçao
     process.exit(1);
+  });
+});
+
+process.on('SIGTERM', () => {
+  console.log(
+    'SIGTERM received shuting down after request finishe, made by me'
+  );
+  server.close(() => {
+    //aqui nos nao precissamos do process.exit ja que o proprio SIGTERM ja faz a aplicaçao fechar
+    console.log('Process terminated!');
   });
 });
 
