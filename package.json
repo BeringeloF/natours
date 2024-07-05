@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint ./",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "debug": "ndb server.js",
     "PROD": "NODE_ENV=production nodemon server.js",
     "startP": "parcel ./public/js/index.js --dist-dir ./public/dist",
