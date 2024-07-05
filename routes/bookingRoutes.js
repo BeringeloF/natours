@@ -9,7 +9,11 @@ export const router = express.Router({ mergeParams: true });
 
 router.use(authControler.protect);
 
-router.get('/checkout-session/:tourId', bookingControler.getCheckoutSession);
+router.get(
+  '/checkout-session/:tourId',
+  authControler.emailMaybeWasConfirmed,
+  bookingControler.getCheckoutSession
+);
 
 router.use(authControler.restrictTo('admin', 'lead-guide'));
 

@@ -291,10 +291,15 @@ export const protect = catchAsync(async function (req, res, next) {
     token = req.cookies.jwt;
   }
 
-  if (!tokenRefresh)
+  if (!tokenRefresh) {
+    res.cookie('jwt', 'not-logged-in', {
+    expires: new Date(Date.now() + 1500),
+    httpOnly: true,
+  });
     return next(
       new AppError('you are not logged in! Please log in to get access!', 401)
     );
+  }
 
   const userChangePassword = await checkUserChangePassword(
     tokenRefresh,

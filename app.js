@@ -21,6 +21,8 @@ import cookieParser from 'cookie-parser';
 dotenv.config({ path: './config.env' });
 const app = express();
 
+app.enable('trust proxy');
+
 //isso aqui serve para setar a view engine que ira inserir os templates
 app.set('view engine', 'pug');
 app.set('views', `${process.env.PWD}/views`);
