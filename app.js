@@ -12,6 +12,7 @@ import { router as reviewRouter } from './routes/reviewRoutes.js';
 import { router as viewRouter } from './routes/viewRoutes.js';
 import { router as authRouter } from './routes/authRoutes.js';
 import { router as bookingRouter } from './routes/bookingRoutes.js';
+import * as bookingControler from './controller/bookingControler.js';
 import morgan from 'morgan';
 import { AppError } from './utils/appError.js';
 import errorControler from './controller/errorControler.js';
@@ -22,7 +23,6 @@ dotenv.config({ path: './config.env' });
 const app = express();
 
 app.enable('trust proxy');
-
 //isso aqui serve para setar a view engine que ira inserir os templates
 app.set('view engine', 'pug');
 app.set('views', `${process.env.PWD}/views`);
@@ -67,8 +67,15 @@ app.use(helmet());
 //agora nos usamos este limitador
 app.use('/api', limiter);
 
-//Body parser reading data from body into req.body
+//a razao para usarmos este route aqui e porque nos queremos os req.body como steam entao esta route deve ser definida antes do
+//chamar o body-parser que faz a conversao para json, caso contrario este webhook nao iria funcionar
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingControler.webhookChechout
+);
 
+//Body parser reading data from body into req.body
 //e como medida de segurança nos tambem podemos limitar o tamnha dos dados que aceitamos
 app.use(express.json({ limit: '10kb' }));
 app.use(

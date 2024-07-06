@@ -7,7 +7,7 @@ export const router = express.Router();
 
 router.get(
   '/',
-  createBookingCheckout,
+  // createBookingCheckout,
   authControler.isLoggedIn,
   viewControler.getOverview
 );
