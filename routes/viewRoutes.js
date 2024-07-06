@@ -4,6 +4,8 @@ import * as authControler from '../controller/authControler.js';
 
 export const router = express.Router();
 
+router.use(viewControler.alerts);
+
 router.get(
   '/',
   // createBookingCheckout,

@@ -4,6 +4,7 @@ import { displayMap } from './mapbox.js';
 import { updateSettings } from './updateSettings.js';
 import { bookTour } from './stripe.js';
 import { sendCode, sendPhone } from './verifyPhoneNumber.js';
+import { showAlert } from './alerts.js';
 
 console.log('hello from parcel');
 
@@ -103,4 +104,10 @@ if (sendPhoneForm) {
     const code = document.querySelector('#code').value;
     await sendCode(code);
   });
+}
+
+const alertMessage = document.querySelector('body').dataset.alert;
+
+if (alertMessage) {
+  showAlert('success', alertMessage, 20);
 }
