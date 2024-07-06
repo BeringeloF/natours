@@ -2,6 +2,7 @@ import Tour from '../models/tourModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import { AppError } from '../utils/appError.js';
 import * as factory from './handlerFactory.js';
+import User from '../models/userModel.js';
 import stripe from 'stripe';
 import Booking from '../models/bookingModel.js';
 
