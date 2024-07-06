@@ -1,7 +1,6 @@
 import express from 'express';
 import * as viewControler from '../controller/viewControler.js';
 import * as authControler from '../controller/authControler.js';
-import { createBookingCheckout } from '../controller/bookingControler.js';
 
 export const router = express.Router();
 
