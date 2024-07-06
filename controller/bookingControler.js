@@ -92,16 +92,16 @@ const createBookingCheckout = async (session) => {
 
   const tourDoc = await Tour.findById(session.client_reference_id);
 
-  //   for (let i = 0; i < tourDoc.dates.length; i++) {
-  //     if (!tourDoc.dates[i].soldOut) {
-  //       tourDoc.dates[i].participants++;
-  //       await tourDoc.save();
-  //       break;
-  //     }
-  //   }
+  for (let i = 0; i < tourDoc.dates.length; i++) {
+    if (!tourDoc.dates[i].soldOut) {
+      tourDoc.dates[i].participants++;
+      await tourDoc.save();
+      break;
+    }
+  }
 };
 
-export const webhookChechout = (req, res, next) => {
+export const webhookChechout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
   let event;
   try {
@@ -115,7 +115,7 @@ export const webhookChechout = (req, res, next) => {
   }
 
   if (event.type === 'checkout.session.completed') {
-    createBookingCheckout(event.data.object);
+    await createBookingCheckout(event.data.object);
 
     res.status(200).json({ received: true });
   }

@@ -293,9 +293,9 @@ export const protect = catchAsync(async function (req, res, next) {
 
   if (!tokenRefresh) {
     res.cookie('jwt', 'not-logged-in', {
-    expires: new Date(Date.now() + 1500),
-    httpOnly: true,
-  });
+      expires: new Date(Date.now() + 1500),
+      httpOnly: true,
+    });
     return next(
       new AppError('you are not logged in! Please log in to get access!', 401)
     );
@@ -516,7 +516,7 @@ export const isLoggedIn = async function (req, res, next) {
       res
     );
 
-    if (req.method === 'GET') {
+    if (req.method === 'GET' && !req.originalUrl.includes('api/')) {
       res.redirect(req.originalUrl.split('?')[0]);
     } else {
       return next();
